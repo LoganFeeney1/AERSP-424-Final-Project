@@ -1,13 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP 424 Final Project\\",
+  "WorkspaceRootPath": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP_424_Final_Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CA2B8044-4A95-406C-BAF7-4725BE190BFB}|AERSP 424 Final Project\\AERSP 424 Final Project.vcxproj|C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP 424 Final Project\\AERSP 424 Final Project\\AERSP 424 Final Project.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{CA2B8044-4A95-406C-BAF7-4725BE190BFB}|AERSP 424 Final Project\\AERSP 424 Final Project.vcxproj|C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP_424_Final_Project\\AERSP 424 Final Project\\AERSP 424 Final Project.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{CA2B8044-4A95-406C-BAF7-4725BE190BFB}|AERSP 424 Final Project\\AERSP 424 Final Project.vcxproj|solutionrelative:AERSP 424 Final Project\\AERSP 424 Final Project.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Game Dev\\Dapper Dash\\Dapper Dash\\Dapper Dash.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -27,47 +24,13 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "AERSP 424 Final Project.cpp",
-              "DocumentMoniker": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP 424 Final Project\\AERSP 424 Final Project\\AERSP 424 Final Project.cpp",
+              "DocumentMoniker": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP_424_Final_Project\\AERSP 424 Final Project\\AERSP 424 Final Project.cpp",
               "RelativeDocumentMoniker": "AERSP 424 Final Project\\AERSP 424 Final Project.cpp",
-              "ToolTip": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP 424 Final Project\\AERSP 424 Final Project\\AERSP 424 Final Project.cpp",
+              "ToolTip": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Final Project\\AERSP_424_Final_Project\\AERSP 424 Final Project\\AERSP 424 Final Project.cpp",
               "RelativeToolTip": "AERSP 424 Final Project\\AERSP 424 Final Project.cpp",
-              "ViewState": "AQIAAI0AAAAAAAAAAAAAAGMAAAAiAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-16T00:07:19.107Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "47d08d5b-8262-42ce-b6a3-c5183dac77b7",
-        "Display": 1,
-        "X": -358,
-        "Y": 0,
-        "Width": 2218,
-        "Height": 1144,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Dapper Dash.cpp",
-              "DocumentMoniker": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Game Dev\\Dapper Dash\\Dapper Dash\\Dapper Dash.cpp",
-              "RelativeDocumentMoniker": "..\\..\\Game Dev\\Dapper Dash\\Dapper Dash\\Dapper Dash.cpp",
-              "ToolTip": "C:\\Users\\Logan\u0027s PC\\OneDrive\\Documents\\Penn State\\AERSP 424\\Game Dev\\Dapper Dash\\Dapper Dash\\Dapper Dash.cpp",
-              "RelativeToolTip": "..\\..\\Game Dev\\Dapper Dash\\Dapper Dash\\Dapper Dash.cpp",
-              "ViewState": "AQIAAMUAAAAAAAAAAAAAAGEAAABaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-25T01:52:47.634Z",
               "EditorCaption": ""
             }
           ]
