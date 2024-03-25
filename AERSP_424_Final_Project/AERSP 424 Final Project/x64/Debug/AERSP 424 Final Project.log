@@ -1,0 +1,5 @@
+﻿  AERSP 424 Final Project.cpp
+C:\Users\Logan's PC\OneDrive\Documents\Penn State\AERSP 424\Final Project\AERSP 424 Final Project\AERSP 424 Final Project\AERSP 424 Final Project.cpp(54,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Logan's PC\OneDrive\Documents\Penn State\AERSP 424\Final Project\AERSP 424 Final Project\AERSP 424 Final Project\AERSP 424 Final Project.cpp(55,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Logan's PC\OneDrive\Documents\Penn State\AERSP 424\Final Project\AERSP 424 Final Project\AERSP 424 Final Project\AERSP 424 Final Project.cpp(130,33): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  AERSP 424 Final Project.vcxproj -> C:\Users\Logan's PC\OneDrive\Documents\Penn State\AERSP 424\Final Project\AERSP 424 Final Project\x64\Debug\AERSP 424 Final Project.exe
