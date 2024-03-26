@@ -44,9 +44,9 @@ int main()
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD HOPPER CHARACTER
-    Texture2D hopper = LoadTexture("images/Block_Hopper_Character.png");            // load hopper using raylib Texture2D data type
+    Texture2D hopper = LoadTexture("images/airplane.png");            // load hopper using raylib Texture2D data type
 
-    const int spacer{ 93 };                                                         // spacer used to place hopper in the right position in the window                                                               
+    const int spacer{ 72 };                                                         // spacer used to place hopper in the right position in the window                                                               
 
     picture hopper_info;										                    // Declare new variable of "picture" data type called "hopper_info" and initializing all of hopper_info's member variables below
     hopper_info.pic.x = 0;                                                          // identifies starting x-coord of hopper (works for pic member)
@@ -74,7 +74,7 @@ int main()
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD BACKGROUND
-    Texture2D background = LoadTexture("images/Background.png");                    // load background using raylib Texture2D data type
+    Texture2D background = LoadTexture("images/runway_background.png");                    // load background using raylib Texture2D data type
     float bg_move{};                                                                // variable declaration to allow the background to move
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ int main()
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // SET UP THE BACKGROUND
-        const int bg_move_speed{ 50 };                              // declare and initialize background move speed
+        const int bg_move_speed{ 70 };                              // declare and initialize background move speed
         bg_move -= bg_move_speed * dt;                              // define how background moves (value linearly grows with every iteration)
 
         // BACKGROUND 1
