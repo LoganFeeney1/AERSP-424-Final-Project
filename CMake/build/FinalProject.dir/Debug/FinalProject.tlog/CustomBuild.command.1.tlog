@@ -1,0 +1,10 @@
+^C:\USERS\LOGAN\ONEDRIVE\DOCUMENTS\PSU NOTES\AERSP 424\FINAL PROJECT\AERSP_424_FINAL_PROJECT\CMAKE\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Logan/OneDrive/Documents/PSU Notes/AERSP 424/Final Project/AERSP_424_Final_Project/CMake" "-BC:/Users/Logan/OneDrive/Documents/PSU Notes/AERSP 424/Final Project/AERSP_424_Final_Project/CMake/build" --check-stamp-file "C:/Users/Logan/OneDrive/Documents/PSU Notes/AERSP 424/Final Project/AERSP_424_Final_Project/CMake/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
