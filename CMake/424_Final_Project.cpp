@@ -8,6 +8,7 @@ Lacy Harrington, Maxwell Bohn, Sana Yousef, Logan Feeney
 #include <raylib.h>
 #include <iostream>
 #include <thread>
+#include "code.h"  // our written library
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // USE OF STRUCTURE TO CREATE COMPOUND DATA TYPE CALLED "PICTURE"
@@ -298,6 +299,8 @@ int main()
     UnloadTexture(airplane);    // unload a loaded texture from Texture2D
     UnloadTexture(background);  // unload a loaded texture from Texture2D
     CloseWindow();              // shuts everything down properly
+
+    thankYou();
 
     return 0;
 }

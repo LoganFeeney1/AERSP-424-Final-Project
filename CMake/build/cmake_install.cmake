@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Logan/OneDrive/Documents/PSU Notes/AERSP 424/Final Project/AERSP_424_Final_Project/CMake
+# Install script for directory: C:/Users/15709/OneDrive/Documents/424 Project/CMake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Logan/OneDrive/Documents/PSU Notes/AERSP 424/Final Project/AERSP_424_Final_Project/CMake/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/15709/OneDrive/Documents/424 Project/CMake/Build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
