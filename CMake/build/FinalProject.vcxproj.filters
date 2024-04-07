@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\15709\OneDrive\Documents\424 Project\CMake\424_Final_Project.cpp">
+    <ClCompile Include="D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMake\424_Final_Project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\15709\OneDrive\Documents\424 Project\CMake\CMakeLists.txt" />
+    <CustomBuild Include="D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMake\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{D536F497-D974-3F34-AD9B-FBF8557F3FB0}</UniqueIdentifier>
+      <UniqueIdentifier>{2891617C-71E1-34DC-A03A-C0AB7C9F50D5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

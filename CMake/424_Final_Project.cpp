@@ -8,14 +8,56 @@ Lacy Harrington, Maxwell Bohn, Sana Yousef, Logan Feeney
 #include <raylib.h>
 #include <iostream>
 #include <thread>
+#include <vector>
+#include <map>
+#include <list>
+#include <string>
 #include "code.h"  // our written library
+
+// storing developer names and roles that could be used to output later
+std::map<std::string, std::string>
+developerRoles = {
+    {"Lacy Harrington", "Game Design and Programming"},
+    {"Maxwell Bohn", "Game Design and Programming"},
+    {"Sana Yousef", "Artwork"},
+    {"Logan Feeney", "Game Design and Programming"},
+};
+
+// storing a list of messages to the user that could be used to output later
+std::list<std::string> gameMessages = {
+    {"Welcome!"},
+    {"Get ready..."},
+    {"Go!"},
+};
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // USE OF STRUCTURE TO CREATE COMPOUND DATA TYPE CALLED "PICTURE"
+
 struct picture
 {
     Rectangle pic;      // defines a rectangle around an image to later draw
     Vector2 position;   // defines where to place the image on the popup window
+
+    // Overload the += operator for Vector2 adjustments
+    picture& operator+=(const Vector2& delta) {
+        this->position.x += delta.x;
+        this->position.y += delta.y;
+        return *this;
+    }
+
+    // Overload the - operator to calculate distance between two pictures
+    Vector2 operator-(const picture& other) const {
+        return Vector2{
+            this->position.x - other.position.x,
+            this->position.y - other.position.y
+        };
+    }
+
+    // Overload the == operator for equality check based on position
+    bool operator==(const picture& other) const {
+        return (this->position.x == other.position.x) && (this->position.y == other.position.y);
+    }
+
 };
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -26,6 +68,7 @@ unsigned int tree_time_delay_spacer{ 600 };     // spacer that creates a time de
 unsigned int tree_vert_spacer{ 100 };            // spacer used to place tree in the correct vertical position in popup window 
 int vel_across_screen{ -300 };                  // speed at which all objects will move across the screen
 float padding{ 0 };					        // buffer between the defined rectangle boundary and the images boundary inside rectangle
+char jumpKey=' ';                               // stores key (of type char) to jump
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // FUNCTION CALL TO CHECK IF airplane IS ON THE GROUND
@@ -54,58 +97,58 @@ int main()
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD AIRPLANE
-    Texture2D airplane = LoadTexture("images/airplane.png");                        // load airplane using raylib Texture2D data type
+    Texture2D* airplane = new Texture2D(LoadTexture("images/airplane.png"));                        // load airplane using raylib Texture2D data type
 
     const int ap_spacer{ 72 };                                                      // spacer used to place airplane in the correct vertical position in popup window                                                               
-
     picture airplane_info;										                    // Declare new variable of "picture" data type called "airplane_info" and initializing all of airplane_info's member variables below
     airplane_info.pic.x = 0;                                                        // identifies starting x-coord of airplane (works for pic member)
     airplane_info.pic.y = 0;                                                        // identifies starting y-coord of airplane (works for pic member)
-    airplane_info.pic.width = airplane.width;                                       // identifies the full width of airplane (works for pic member)
-    airplane_info.pic.height = airplane.height;                                     // identifies the full height of airplane (works for pic member)
+    airplane_info.pic.width = airplane->width;                                       // identifies the full width of airplane (works for pic member)
+    airplane_info.pic.height = airplane->height;                                     // identifies the full height of airplane (works for pic member)
     airplane_info.position.x = win_dimension[0] / 3 - airplane_info.pic.width / 2;  // places airplane perfectly in the middle of the screen (works for position member)
     airplane_info.position.y = win_dimension[1] - airplane_info.pic.height - ap_spacer;// places airplane on the bottom of the window with a spacer (works for position member)
 
     // JUMP CONDITIONS FOR airplane
     int ap_velocity{};					                                                // sets vertical velocity equal to zero so airplane does not move when not jumping (pixels/second)
     const int jump_vel{ -791 };		                                                // velocity that airplane starts moving upward with when the spacebar is hit (pixels/second)
-    const int gravity{ 2000 };		                                                // acceleration due to gravity (pixels/second)/second ---> pulls airplane back down after jumping
+    double gravity{ 2000 };		                                                // acceleration due to gravity (pixels/second)/second ---> pulls airplane back down after jumping
     bool in_air{};					                                                // boolean value initialized to false that determines if airplane is in the air
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD BIRD
-    Texture2D bird = LoadTexture("images/hopper.png");            // load bird using raylib Texture2D data type
+    Texture2D* bird = new Texture2D(LoadTexture("images/hopper.png"));            // load bird using raylib Texture2D data type
 
     const int num_of_bird{ 3 };								// number of birds that will appear in the game
     const int bird_spacing{ 600 };								// spacing between each bird
+							    
+    std::vector<picture> BIRDS(num_of_bird);                    // create array of data type "picture" to store "size_of_birds" number of birds
 
-    picture BIRDS[num_of_bird]{};							    // create array of data type "picture" to store "size_of_birds" number of birds
 
     for (int i = 0; i < num_of_bird; i++)                      // for loop to define bird image along with position on the popup window
     {
         BIRDS[i].pic.x = 0;									                            // create x-coord variable for bird
         BIRDS[i].pic.y = 0;									                            // create y-coord variable for bird
-        BIRDS[i].pic.width = bird.width;				                                // create width variable for bird
-        BIRDS[i].pic.height = bird.height;				                                // create height variable for bird
+        BIRDS[i].pic.width = bird->width;				                                // create width variable for bird
+        BIRDS[i].pic.height = bird->height;				                                // create height variable for bird
         BIRDS[i].position.x = win_dimension[0] + i * bird_spacing;	// create x-coord variable to place bird on screen
         BIRDS[i].position.y = win_dimension[1] - bird_vert_spacer;	                    // create y-coord variable to place bird on screen
     }
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD TREE
-    Texture2D tree = LoadTexture("images/hopper.png");          // load tree using raylib Texture2D data type
+    Texture2D* tree = new Texture2D(LoadTexture("images/hopper.png"));          // load tree using raylib Texture2D data type
 
     const int num_of_tree{ 3 };								    // number of trees that will appear in the game
     const int tree_spacing{ 600 };								// spacing between each tree
 
-    picture TREES[num_of_tree]{};							    // create array of data type "picture" to store "size_of_trees" number of trees
+    std::vector<picture> TREES(num_of_tree);							    // create array of data type "picture" to store "size_of_trees" number of trees
 
     for (int i = 0; i < num_of_bird; i++)                       // for loop to define bird image along with position on the popup window
     {
         TREES[i].pic.x = 0;									            // create x-coord variable for bird
         TREES[i].pic.y = 0;									            // create y-coord variable for bird
-        TREES[i].pic.width = tree.width;				                // create width variable for bird
-        TREES[i].pic.height = tree.height;				                // create height variable for bird
+        TREES[i].pic.width = tree->width;				                // create width variable for bird
+        TREES[i].pic.height = tree->height;				                // create height variable for bird
         TREES[i].position.x += win_dimension[0] + i * tree_spacing;	    // create x-coord variable to place bird on screen
         TREES[i].position.y = win_dimension[1] - tree_vert_spacer;	    // create y-coord variable to place bird on screen
     }
@@ -118,7 +161,7 @@ int main()
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD BACKGROUND
-    Texture2D background = LoadTexture("images/runway_background.png");             // load background using raylib Texture2D data type
+    Texture2D* background = new Texture2D(LoadTexture("images/runway_background.png"));             // load background using raylib Texture2D data type
     float bg_move{};                                                                // variable declaration to allow the background to move
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -147,14 +190,14 @@ int main()
         // BACKGROUND 1
         Vector2 bg_1_position{};                                    // variable declaration to define the position of background 1 (initialized to zero)
         bg_1_position.x = bg_move;                                  // assign x-position to background movement
-        DrawTextureEx(background, bg_1_position, 0.0, 1.0, WHITE);  // draw background 1
+        DrawTextureEx(*background, bg_1_position, 0.0, 1.0, WHITE);  // draw background 1
 
         // BACKGROUND 2
         Vector2 bg_2_position{};                                    // variable declaration to define the position of background 2 (initialized to zero)
-        bg_2_position.x = bg_move + background.width;               // assign x-position to background movement (shifted by one background width)
-        DrawTextureEx(background, bg_2_position, 0.0, 1.0, WHITE);  // draw background 2
+        bg_2_position.x = bg_move + background->width;               // assign x-position to background movement (shifted by one background width)
+        DrawTextureEx(*background, bg_2_position, 0.0, 1.0, WHITE);  // draw background 2
 
-        if (bg_move <= -background.width)                           // when the first background has shifted one complete width, reset position
+        if (bg_move <= -background->width)                           // when the first background has shifted one complete width, reset position
         {
             bg_move = 0;                                            // reset position
         }
@@ -270,37 +313,40 @@ int main()
             DrawText("You Win!", win_dimension[0] / 3, win_dimension[1] / 2, 50, WHITE);
 
             // DRAW AIRPLANE
-            DrawTextureRec(airplane, airplane_info.pic, airplane_info.position, WHITE); // draw airplane
+            DrawTextureRec(*airplane, airplane_info.pic, airplane_info.position, WHITE); // draw airplane
         }
         else
         {
             // DRAW BIRDS
             for (int i = 0; i < num_of_tree; i++)
             {
-                DrawTextureRec(bird, BIRDS[i].pic, BIRDS[i].position, WHITE);           // draw birds
+                DrawTextureRec(*bird, BIRDS[i].pic, BIRDS[i].position, WHITE);           // draw birds
             }
 
             // DRAW TREES
             for (int i = 0; i < num_of_tree; i++)
             {
-                DrawTextureRec(tree, TREES[i].pic, TREES[i].position, WHITE);           // draw trees  
+                DrawTextureRec(*tree, TREES[i].pic, TREES[i].position, WHITE);           // draw trees  
             }
 
             // DRAW AIRPLANE
-            DrawTextureRec(airplane, airplane_info.pic, airplane_info.position, WHITE); // draw airplane
+            DrawTextureRec(*airplane, airplane_info.pic, airplane_info.position, WHITE); // draw airplane
         }
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------
         EndDrawing();           // all done
     }
 
-    UnloadTexture(tree);        // unload a loaded texture from Texture2D
-    UnloadTexture(bird);        // unload a loaded texture from Texture2D
-    UnloadTexture(airplane);    // unload a loaded texture from Texture2D
-    UnloadTexture(background);  // unload a loaded texture from Texture2D
-    CloseWindow();              // shuts everything down properly
-
     thankYou();
+
+    delete airplane;
+    airplane = nullptr;
+    delete bird;
+    bird = nullptr;
+    delete tree;
+    tree = nullptr;
+    delete background;
+    background = nullptr;
 
     return 0;
 }

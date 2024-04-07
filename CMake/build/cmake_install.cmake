@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/15709/OneDrive/Documents/424 Project/CMake
+# Install script for directory: D:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/15709/OneDrive/Documents/424 Project/CMake/Build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

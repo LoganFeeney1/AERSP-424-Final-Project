@@ -1,4 +1,5 @@
-﻿  Building Custom Rule C:/Users/15709/OneDrive/Documents/424 Project/CMake/CMakeLists.txt
+﻿  Building Custom Rule D:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake/CMakeLists.txt
   424_Final_Project.cpp
+BlockHopperlib.lib(Source.obj) : warning LNK4099: PDB '' was not found with 'BlockHopperlib.lib(Source.obj)' or at ''; linking object as if no debug info
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  FinalProject.vcxproj -> C:\Users\15709\OneDrive\Documents\424 Project\CMake\Build\Debug\FinalProject.exe
+  FinalProject.vcxproj -> D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMake\build\Debug\FinalProject.exe

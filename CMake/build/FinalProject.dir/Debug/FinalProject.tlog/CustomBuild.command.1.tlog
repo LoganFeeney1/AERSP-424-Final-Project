@@ -1,6 +1,6 @@
-^C:\USERS\15709\ONEDRIVE\DOCUMENTS\424 PROJECT\CMAKE\CMAKELISTS.TXT
+^D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMAKE\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/15709/OneDrive/Documents/424 Project/CMake" "-BC:/Users/15709/OneDrive/Documents/424 Project/CMake/Build" --check-stamp-file "C:/Users/15709/OneDrive/Documents/424 Project/CMake/Build/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake" "-BD:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake/build" --check-stamp-file "D:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake/build/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
