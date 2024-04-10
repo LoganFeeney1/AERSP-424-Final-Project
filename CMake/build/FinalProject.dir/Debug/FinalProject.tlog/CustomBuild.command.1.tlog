@@ -1,6 +1,6 @@
-^D:\AERSP 424\FINAL PROJECT\CMAKE\CMAKELISTS.TXT
+^D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMAKE\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SD:/AERSP 424/Final Project/CMake" "-BD:/AERSP 424/Final Project/CMake/build" --check-stamp-file "D:/AERSP 424/Final Project/CMake/build/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake" "-BD:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake/build" --check-stamp-file "D:/VISUAL STUDIO CODE/PROJECTS/AERSP424 FINAL PROJECT/CMake/build/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

@@ -13,6 +13,7 @@ Lacy Harrington, Maxwell Bohn, Sana Yousef, Logan Feeney
 #include <list>
 #include <string>
 #include <atomic>
+#include <chrono>
 #include "code.h"  // our written library
 
 // storing developer names and roles that could be used to output later
@@ -34,6 +35,52 @@ std::list<std::string> gameMessages = {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // USE OF STRUCTURE TO CREATE COMPOUND DATA TYPE CALLED "PICTURE"
 
+class DrawableEntity {
+public:
+    // Virtual destructor to ensure derived class destructors are called
+    virtual ~DrawableEntity() {}
+
+    // Virtual function for additional setup or initialization, if needed
+    virtual void Initialize() {}
+
+    // Virtual function to update the entity. Receives a delta time as argument.
+    virtual void Update(float dt) {}
+
+    // Virtual function for drawing the entity on the screen
+    virtual void Draw() const {}
+};
+
+class AnimatedEntity : public DrawableEntity {
+public:
+    void Initialize() override {
+        // Initialize animation-specific resources
+    }
+
+    void Update(float dt) override {
+        // Update animation frames based on dt
+    }
+
+    void Draw() const override {
+        // Draw the current frame of the animation
+    }
+};
+
+class StaticEntity : public DrawableEntity {
+public:
+    void Initialize() override {
+        // Initialize static entity resources
+    }
+
+    void Update(float dt) override {
+        // Possibly empty, as static entities may not need updates
+    }
+
+    void Draw() const override {
+        // Draw the static entity
+    }
+};
+
+
 struct button           // structure to define dimensions for the press go button
 {
     Rectangle GO;       // defines the rectangle around the press GO! button
@@ -46,10 +93,24 @@ struct words            // structure to define the placement of the words in sta
     int font_size;      // defines the font size
 };
 
-struct picture
-{
-    Rectangle pic;      // defines a rectangle around an image to later draw
-    Vector2 position;   // defines where to place the image on the popup window
+struct picture : public DrawableEntity {
+    Rectangle pic;      // Defines a rectangle around an image to later draw
+    Vector2 position;   // Defines where to place the image on the screen
+
+    // Implementing virtual functions with minimal functionality
+    void Initialize() override {
+        // Initialization logic specific to picture could go here
+    }
+
+    void Update(float dt) override {
+        // Update logic specific to picture could go here
+        // For simplicity, we're leaving it empty as the main code directly manipulates position
+    }
+
+    void Draw() const override {
+        // Draw logic specific to picture
+        // Since drawing happens in the main loop with specific logic, we leave this empty or implement a placeholder
+    }
 
     // Overload the += operator for Vector2 adjustments
     picture& operator+=(const Vector2& delta) {
@@ -93,6 +154,20 @@ bool check_airplane_on_ground(picture check, int window_height, int spacer)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 std::atomic<bool> startGame(false); // Atomic variable to safely change the game state between threads
+std::atomic<int> score(0); // game score, shared resource between threads
+std::atomic<bool> gameRunning(true); // New atomic flag to control game running state
+
+void IncrementScore() {
+    while (!startGame) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        if (!gameRunning) return; // Exit if the game is no longer running
+    }
+
+    while (startGame && gameRunning) { // Also check gameRunning condition here
+        ++score;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+}
 
 void ShowMenu() 
 {
@@ -114,7 +189,7 @@ void ShowMenu()
     Disp_Instructions.y = 200;
     Disp_Instructions.font_size = 20;
 
-    while (!startGame && !WindowShouldClose()) {
+    while (!startGame && !WindowShouldClose() && gameRunning) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("Welcome to the Airplane Game!", Display_Welcome.x, Display_Welcome.y, Display_Welcome.font_size, BLACK);
@@ -225,6 +300,8 @@ int main()
     //  FRAME RATE SETTINGS
     const int fps = 60;		                // initialize the target frames per second
     SetTargetFPS(fps);		                // set target fps for popup window
+
+    std::thread scoreThread(IncrementScore);
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //  SETTING UP GAME
@@ -388,9 +465,18 @@ int main()
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------
         EndDrawing();           // all done
+
     }
 
     thankYou();
+
+    // signal the thread to stop
+    gameRunning = false;
+    
+    // join the thread
+    if (scoreThread.joinable()) {
+        scoreThread.join();
+    }
 
     delete airplane;
     airplane = nullptr;
