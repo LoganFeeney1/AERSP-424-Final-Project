@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMake\CMakeLists.txt" />
+    <CustomBuild Include="D:\AERSP 424\Final Project\CMake\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

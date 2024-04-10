@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMake\build\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>D:\AERSP 424\Final Project\CMake\build\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\VISUAL STUDIO CODE\PROJECTS\AERSP424 FINAL PROJECT\CMake\build\Debug\FinalProject.exe</FullPath>
+      <FullPath>D:\AERSP 424\Final Project\CMake\build\Debug\FinalProject.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

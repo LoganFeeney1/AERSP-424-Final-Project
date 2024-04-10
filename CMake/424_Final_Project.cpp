@@ -12,6 +12,7 @@ Lacy Harrington, Maxwell Bohn, Sana Yousef, Logan Feeney
 #include <map>
 #include <list>
 #include <string>
+#include <atomic>
 #include "code.h"  // our written library
 
 // storing developer names and roles that could be used to output later
@@ -32,6 +33,18 @@ std::list<std::string> gameMessages = {
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // USE OF STRUCTURE TO CREATE COMPOUND DATA TYPE CALLED "PICTURE"
+
+struct button           // structure to define dimensions for the press go button
+{
+    Rectangle GO;       // defines the rectangle around the press GO! button
+};
+
+struct words            // structure to define the placement of the words in start menu
+{
+    int x;              // defines the x location of the start of the sentence
+    int y;              // defines the y location of the start of the sentence
+    int font_size;      // defines the font size
+};
 
 struct picture
 {
@@ -62,12 +75,12 @@ struct picture
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // GLOBAL VARIABLES
-unsigned int bird_time_delay_spacer{ 200 };     // spacer that creates a time delay for the user before they need to start jumping
+unsigned int bird_time_delay_spacer{ 600 };     // spacer that creates a time delay for the user before they need to start jumping
 unsigned int bird_vert_spacer{ 300 };           // spacer that places the bird in the corrct vertical position
-unsigned int tree_time_delay_spacer{ 600 };     // spacer that creates a time delay for the user before they need to start jumping
-unsigned int tree_vert_spacer{ 100 };            // spacer used to place tree in the correct vertical position in popup window 
-int vel_across_screen{ -300 };                  // speed at which all objects will move across the screen
-float padding{ 0 };					        // buffer between the defined rectangle boundary and the images boundary inside rectangle
+unsigned int tree_time_delay_spacer{ 200 };     // spacer that creates a time delay for the user before they need to start jumping
+unsigned int tree_vert_spacer{ 157 };           // spacer used to place tree in the correct vertical position in popup window 
+int vel_across_screen{ -500 };                  // speed at which all objects will move across the screen
+float padding{ 10 };					        // buffer between the defined rectangle boundary and the images boundary inside rectangle
 char jumpKey=' ';                               // stores key (of type char) to jump
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -79,11 +92,49 @@ bool check_airplane_on_ground(picture check, int window_height, int spacer)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+std::atomic<bool> startGame(false); // Atomic variable to safely change the game state between threads
 
+void ShowMenu() 
+{
+    button press_go_sizing;
+    press_go_sizing.GO.x = 320;     // x position of press go button
+    press_go_sizing.GO.y = 250;     // y position of press go button
+    press_go_sizing.GO.width = 85;  // width of press go button
+    press_go_sizing.GO.height = 50; // height of press go button
 
-// ANY ADDITIONAL FUNCTIONS CAN GO HERE
+    Rectangle goButton = { press_go_sizing.GO.x, press_go_sizing.GO.y, press_go_sizing.GO.width, press_go_sizing.GO.height}; // Define the "GO!" button area
 
+    words Display_Welcome;
+    Display_Welcome.x = 218;
+    Display_Welcome.y = 170;
+    Display_Welcome.font_size = 20;
 
+    words Disp_Instructions;
+    Disp_Instructions.x = 210;
+    Disp_Instructions.y = 200;
+    Disp_Instructions.font_size = 20;
+
+    while (!startGame && !WindowShouldClose()) {
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+        DrawText("Welcome to the Airplane Game!", Display_Welcome.x, Display_Welcome.y, Display_Welcome.font_size, BLACK);
+        DrawText("Win by cleaing all the obstacles", Disp_Instructions.x, Disp_Instructions.y, Disp_Instructions.font_size, BLACK);
+
+        // Draw the "GO!" button
+        DrawRectangleRec(goButton, GRAY);
+        DrawText("GO!", goButton.x + 30, goButton.y + 15, 20, BLACK);
+
+        // Check if the "GO!" button is clicked
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            Vector2 mousePoint = GetMousePosition();
+            if (CheckCollisionPointRec(mousePoint, goButton)) {
+                startGame = true;
+            }
+        }
+
+        EndDrawing();
+    }
+}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // START OF MAIN FUNCTION
@@ -94,6 +145,8 @@ int main()
     win_dimension[1] = 480;      // window height
 
     InitWindow(win_dimension[0], win_dimension[1], "Airplane Game!");               // create popup window
+
+    ShowMenu();
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD AIRPLANE
@@ -110,16 +163,16 @@ int main()
 
     // JUMP CONDITIONS FOR airplane
     int ap_velocity{};					                                                // sets vertical velocity equal to zero so airplane does not move when not jumping (pixels/second)
-    const int jump_vel{ -791 };		                                                // velocity that airplane starts moving upward with when the spacebar is hit (pixels/second)
+    const int jump_vel{ -900 };		                                                // velocity that airplane starts moving upward with when the spacebar is hit (pixels/second)
     double gravity{ 2000 };		                                                // acceleration due to gravity (pixels/second)/second ---> pulls airplane back down after jumping
     bool in_air{};					                                                // boolean value initialized to false that determines if airplane is in the air
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD BIRD
-    Texture2D* bird = new Texture2D(LoadTexture("images/hopper.png"));            // load bird using raylib Texture2D data type
+    Texture2D* bird = new Texture2D(LoadTexture("images/Bird.png"));            // load bird using raylib Texture2D data type
 
-    const int num_of_bird{ 3 };								// number of birds that will appear in the game
-    const int bird_spacing{ 600 };								// spacing between each bird
+    const int num_of_bird{ 8 };								// number of birds that will appear in the game
+    const int bird_spacing{ 800 };								// spacing between each bird
 							    
     std::vector<picture> BIRDS(num_of_bird);                    // create array of data type "picture" to store "size_of_birds" number of birds
 
@@ -130,16 +183,16 @@ int main()
         BIRDS[i].pic.y = 0;									                            // create y-coord variable for bird
         BIRDS[i].pic.width = bird->width;				                                // create width variable for bird
         BIRDS[i].pic.height = bird->height;				                                // create height variable for bird
-        BIRDS[i].position.x = win_dimension[0] + i * bird_spacing;	// create x-coord variable to place bird on screen
+        BIRDS[i].position.x = win_dimension[0] + bird_time_delay_spacer + i * bird_spacing;	// create x-coord variable to place bird on screen
         BIRDS[i].position.y = win_dimension[1] - bird_vert_spacer;	                    // create y-coord variable to place bird on screen
     }
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD TREE
-    Texture2D* tree = new Texture2D(LoadTexture("images/hopper.png"));          // load tree using raylib Texture2D data type
+    Texture2D* tree = new Texture2D(LoadTexture("images/Tree.png"));          // load tree using raylib Texture2D data type
 
-    const int num_of_tree{ 3 };								    // number of trees that will appear in the game
-    const int tree_spacing{ 600 };								// spacing between each tree
+    const int num_of_tree{ 8 };								    // number of trees that will appear in the game
+    const int tree_spacing{ 800 };								// spacing between each tree
 
     std::vector<picture> TREES(num_of_tree);							    // create array of data type "picture" to store "size_of_trees" number of trees
 
@@ -149,7 +202,7 @@ int main()
         TREES[i].pic.y = 0;									            // create y-coord variable for bird
         TREES[i].pic.width = tree->width;				                // create width variable for bird
         TREES[i].pic.height = tree->height;				                // create height variable for bird
-        TREES[i].position.x += win_dimension[0] + i * tree_spacing;	    // create x-coord variable to place bird on screen
+        TREES[i].position.x += win_dimension[0] + tree_time_delay_spacer + i * tree_spacing;	    // create x-coord variable to place bird on screen
         TREES[i].position.y = win_dimension[1] - tree_vert_spacer;	    // create y-coord variable to place bird on screen
     }
 
@@ -157,7 +210,7 @@ int main()
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // FINISH LINE CONDITION
     float finishline{ TREES[num_of_tree - 1].position.x };		// finish line variable that will occur immediately after the final tree
-    const int buffer{ 400 };									// space after finish line when game ends
+    const int buffer{ 500 };									// space after finish line when game ends
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // LOAD BACKGROUND
@@ -175,7 +228,7 @@ int main()
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //  SETTING UP GAME
-    while (!WindowShouldClose())            // boolean raylib function that turns true when the popup window "x" or "esc" is pressed. Conditions will then go "not true" and while loop ends
+    while (!WindowShouldClose() && startGame)            // boolean raylib function that turns true when the popup window "x" or "esc" is pressed. Conditions will then go "not true" and while loop ends
     {
         BeginDrawing();                     // raylib function to start drawing in the command window
         ClearBackground(WHITE);             // set white background to avoid double buffering
